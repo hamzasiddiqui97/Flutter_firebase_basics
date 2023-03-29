@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "311973788240",
+    "project_id": "fir-basics-dcfeb",
+    "storage_bucket": "fir-basics-dcfeb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:311973788240:android:74aa3e5b1630b3f9c5af55",
+        "android_client_info": {
+          "package_name": "com.example.firebasebasics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "311973788240-6g15doff37a7lvf1p4l7uum5l7l1ra6b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCP33LGKbqAIOxcFkbCK5ERtYV7HyVhQas"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "311973788240-6g15doff37a7lvf1p4l7uum5l7l1ra6b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
