@@ -85,7 +85,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
             ),
             const SizedBox(height: 50,),
-            RoundedButton(title: 'login', onTap: () {
+            RoundedButton(
+              loading: _isLoading,
+              title: 'login',
+              onTap: () {
 
               if (_formKey.currentState!.validate()) {
                 setState(() {
