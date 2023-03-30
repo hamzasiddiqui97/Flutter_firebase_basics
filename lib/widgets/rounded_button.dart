@@ -5,7 +5,8 @@ class RoundedButton extends StatelessWidget {
 
   final String title;
   final VoidCallback onTap;
-  const RoundedButton({Key? key, required this.title, required this.onTap}) : super(key: key);
+  bool loading;
+  RoundedButton({Key? key, required this.title, required this.onTap, this.loading=false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
