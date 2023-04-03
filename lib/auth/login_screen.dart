@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebasebasics/auth/signup_screen.dart';
+import 'package:firebasebasics/ui/posts/post_screen.dart';
+import 'package:firebasebasics/utils/utility.dart';
 import 'package:firebasebasics/widgets/rounded_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,11 +15,15 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
 
+
+  bool loading = false;
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
 
+
+  final _auth = FirebaseAuth.instance;
 
   @override
   void dispose() {
@@ -24,6 +31,32 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
     emailController.dispose();
     passwordController.dispose();
+  }
+
+  void login() {
+
+    String success_message = 'Login successful';
+    setState(() {
+      loading = true;
+    });
+    _auth.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text).then((value) {
+          // Utils().ToastMessage(value.user!.email.toString());
+          Utils().ToastMessage(success_message);
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const PostScreen()));
+
+          setState(() {
+            loading = false;
+          });
+    }).onError((error, stackTrace) {
+      debugPrint(error.toString());
+      Utils().ToastMessage(error.toString());
+
+      setState(() {
+        loading = false;
+      });
+    });
   }
 
 
@@ -86,9 +119,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(height: 50,),
-              RoundedButton(title: 'login', onTap: () {
+              RoundedButton(
+                loading: loading,
+                title: 'login', onTap: () {
                 if (_formKey.currentState!.validate()) {
-
+                  login();
                 }
               },),
 
