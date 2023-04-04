@@ -15,6 +15,20 @@ class _AddPlacesState extends State<AddPlaces> {
       appBar: AppBar(
         title: const Text('Add Places'),
       ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+
+          children: [
+            SizedBox(height: 30,),
+            TextFormField(
+              decoration: InputDecoration(
+                hintText: 'Enter source',
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
