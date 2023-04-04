@@ -4,7 +4,10 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebasebasics/auth/login_screen.dart';
 import 'package:firebasebasics/ui/posts/add_post.dart';
 import 'package:firebasebasics/utils/utility.dart';
+import 'package:firebasebasics/widgets/rounded_button.dart';
 import 'package:flutter/material.dart';
+
+import '../places/add_places.dart';
 
 class PostScreen extends StatefulWidget {
   const PostScreen({Key? key}) : super(key: key);
@@ -91,6 +94,13 @@ class _PostScreenState extends State<PostScreen> {
                   );
                 }),
           ),
+
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 2,
+              child: RoundedButton(title: 'Add Location', onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const AddPlaces()));
+              })),
+          const SizedBox(height: 20,),
         ],
       ),
     );
