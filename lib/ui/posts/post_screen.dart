@@ -14,10 +14,12 @@ class PostScreen extends StatefulWidget {
 }
 
 class _PostScreenState extends State<PostScreen> {
-
   final auth = FirebaseAuth.instance;
   final refPost = FirebaseDatabase.instance.ref('Post');
   final refReview = FirebaseDatabase.instance.ref('Review');
+
+  static const TextStyle _headingtextStyle =
+      TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {
@@ -26,58 +28,64 @@ class _PostScreenState extends State<PostScreen> {
         automaticallyImplyLeading: false,
         title: const Text('Post Screen'),
         actions: [
-          IconButton(onPressed: (){
-            auth.signOut().then((value) {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
-            }).onError((error, stackTrace) {
-              Utils().ToastMessage(error.toString());
-            });
-          }, icon: const Icon(Icons.logout_rounded))
+          IconButton(
+              onPressed: () {
+                auth.signOut().then((value) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginScreen()));
+                }).onError((error, stackTrace) {
+                  Utils().ToastMessage(error.toString());
+                });
+              },
+              icon: const Icon(Icons.logout_rounded))
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed:(){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const AddPostScreen()));
-        } ,
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const AddPostScreen()));
+        },
         child: const Icon(Icons.add),
-
       ),
       body: Column(
         children: [
-          const Text('Reviews'),
-
-          Expanded(child: StreamBuilder(
+          const Text(
+            'Reviews',
+            style: _headingtextStyle,
+          ),
+          Expanded(
+              child: StreamBuilder(
             stream: refReview.onValue,
             builder: (context, AsyncSnapshot<DatabaseEvent> snapshot) {
-
-              if (!snapshot.hasData){
+              if (!snapshot.hasData) {
                 return const Center(child: CircularProgressIndicator());
               } else {
-
-                Map<dynamic, dynamic> map = snapshot.data!.snapshot.value as dynamic;
+                Map<dynamic, dynamic> map =
+                    snapshot.data!.snapshot.value as dynamic;
 
                 List<dynamic> list = [];
                 list.clear();
                 list = map.values.toList();
                 return ListView.builder(
                     itemCount: snapshot.data!.snapshot.children.length,
-                    itemBuilder: (context,index) {
+                    itemBuilder: (context, index) {
                       return ListTile(
-                        title: Text(list[index]['title']) ,
+                        title: Text(list[index]['title']),
                       );
                     });
               }
-
             },
           )),
-
-
-          const Text('Posts'),
-
+          const Text(
+            'Posts',
+            style: _headingtextStyle,
+          ),
           Expanded(
             child: FirebaseAnimatedList(
                 query: refPost,
-                itemBuilder: (context,snapshot,animation, index){
+                itemBuilder: (context, snapshot, animation, index) {
                   return ListTile(
                     title: Text(snapshot.child('title').value.toString()),
                   );
@@ -85,7 +93,6 @@ class _PostScreenState extends State<PostScreen> {
           ),
         ],
       ),
-
     );
   }
 }
